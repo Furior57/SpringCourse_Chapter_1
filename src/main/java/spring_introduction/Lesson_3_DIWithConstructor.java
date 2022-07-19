@@ -2,9 +2,8 @@ package spring_introduction;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spring_introduction.animal.Person;
-import spring_introduction.animal.Pet;
 
-public class Lesson_3_DI {
+public class Lesson_3_DIWithConstructor {
     // В прошлом уроке мы упоминали, что Spring позволяет удобно работать с объектами
     // имеющими много зависимостей. Этот механизм называется Dependency Injection(DI) -
     // внедрение зависимостей. Представим какой-то абстрактный класс Employee, у которого есть поля
@@ -30,7 +29,7 @@ public class Lesson_3_DI {
         // изменение поведения программы, не переписывая код.
 //        Person person = new Person(pet);
 //        person.callYourPet();
-        // Теперь перейдем в файл конфигурации, на 35 строку и посмотрим как внедрять зависимости в
+        // Теперь перейдем в applicationContext, на 35 строку и посмотрим как внедрять зависимости в
         // конструктор класса.
         // Первым делом закомментируем все что мы написали, кроме инициализации контейнера.
         // А теперь инициализируем Person. Как видите нам хватило всего двух строчек, чтобы создать

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:myApp.properties"/>
+    <bean id="myPet"
+          class="spring_introduction.animal.Cat">
+    </bean>
+    <!--В прошлом уроке мы прописывали тэг constructor-arg, с его помощью мы вызывали конструктор
+    класса и передавали ему ссылку на тот бин, который соответствовал его аргументу.
+    При этом мы все еще жестко завязаны на аргументы конструктора. Здесь мы поступим по другому.
+    Воспользуемся тэгом property, это ключевое слово, оно позволяет внедрить зависимость с помощью
+    сеттера. Как оно узнает какой сеттер использовать? Очень просто. В параметр name записывается
+    имя поля которое мы хотим задать, мы же хорошие программисты и сгенерировали для него сеттер?
+    property берет значение аргумента name, приводит первую букву к верхнему регистру, а затем
+    добавляет перед ней слово set, в нашем случае, получается setPet, поэтому очень важно
+    контролировать названия сеттеров и по возможности пользоваться генератором. Вторым параметром
+    property, ref, мы передаем ссылку на тот бин, который передадим сеттеру. Подобный подход
+    позволяет нам не указывать никаких зависимостей в самом классе, а конфигурировать их здесь.
+    Вернемся в Lesson_4, 10 строка-->
+    <bean id="myPerson"
+          class="spring_introduction.animal.Person">
+        <property name="pet" ref="myPet"/>
+        <!--Здесь все просто, так же используем ключевое слово property, чтобы получить доступ к
+        сеттеру, но потом передаем не ссылку на бин, а с помощью ключевого слова value задаем
+        сеттеру значение, причем неправильный тип данных мы ввести не сможем, ide проверяет это.
+        Однако такое строгое указание значений в конфигурационном файле является плохой практикой,
+        каждый раз когда нам нужно поменять значение нам придется менять сам файл. Чтобы выйти из
+        положения, мы создадим в директории resources файл myApp.properties, взглянем на его содержание,
+        а потом перейдем в Lesson_4 на 13 строку за подробным разъяснением, затем вернемся сюда.
+        После указания области имен и до блока с бинами у нас есть строка, разберем ее:
+        <context:property-placeholder location="classpath:myApp.properties"/>
+         context:property-placeholder - указание, что мы пользуемся файлом с настройками,
+         location="classpath:myApp.properties" - местоположение файла, classpath - указание искать
+         данный файл в папке со всеми классами, папка resources находится там же.
+         Теперь фамилию мы так же пропишем напрямую, а вот возраст возьмем из файла, для
+         этого внутри кавычек пишем ключ: ${person.age}. Ключ не зависит ни от чего, мы сами
+         его придумываем.-->
+        <property name="surname" value="Shibaev"/>
+        <property name="age" value="${person.age}"/>
+    </bean>
+</beans>
