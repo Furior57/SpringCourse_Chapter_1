@@ -23,6 +23,7 @@ public class Lesson_4_DIWithSetter {
 
         Person person = context.getBean("myPerson", Person.class);
         person.callYourPet();
+        context.close();
 
     }
 }

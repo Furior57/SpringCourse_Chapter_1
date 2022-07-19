@@ -20,7 +20,7 @@ public class Lesson_5_BeanScope {
 
     public static void main(String[] args) {
         // создали контекст
-        ApplicationContext context =
+        ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext2.xml");
         // а теперь интересный момент, мы не ставили никаких scope, так что по умолчанию у нас
         // используется singleton, если мы просто запустим сейчас main(), то у нас появится
@@ -54,5 +54,6 @@ public class Lesson_5_BeanScope {
         System.out.println("Is same objects? "+ (dog==dog2));
         System.out.println(dog+"\n"+dog2);
 
+        context.close();
     }
 }
