@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 // если в названии класса первые две или более букв заглавные, например SQLTest, то название бина
 // становится таким же как название класса, так и останется SQLTest.
 // Вернемся в Lesson_7
+
 @Component("catBean")
 public class CatWithAnnotation implements Pet{
 

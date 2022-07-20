@@ -1,4 +1,4 @@
-package spring_introduction;
+package spring_introduction.lessons;
 
 import spring_introduction.animal.Cat;
 import spring_introduction.animal.Dog;
