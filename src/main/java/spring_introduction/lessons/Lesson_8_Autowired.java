@@ -23,13 +23,16 @@ public class Lesson_8_Autowired {
     // Далее может быть несколько вариантов:
         // Если нашелся подходящий бин, происходит внедрение зависимости
         // Если подходящих по типу бинов нет, бросается исключение
-        // Если подходящих бинов больше одного, тоже бросается исключение
+        // Если подходящих бинов больше одного, тоже бросается исключение, кроме случаев
+        // когда мы используем @Qualified
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext3.xml");
         PersonWithAnnotation person = context.getBean("personBean", PersonWithAnnotation.class);
         person.callYourPet();
+        System.out.println(person.getSurname());
+        System.out.println(person.getAge());
         context.close();
     }
 }

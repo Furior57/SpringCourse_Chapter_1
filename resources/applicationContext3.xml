@@ -9,5 +9,6 @@
     <!--Такой записью мы указываем в каком пакете Spring должен искать классы отмеченные как
     @Component-->
     <context:component-scan base-package="spring_introduction"/>
+    <context:property-placeholder location="classpath:myApp.properties"/>
 
 </beans>
