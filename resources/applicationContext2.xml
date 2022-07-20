@@ -9,7 +9,9 @@
     <!--Здесь мы определим два разных бина, один будет singletone, второй prototype, синтаксис
     простой не будем дополнительно его рассматривать-->
     <bean id="myPet"
-          class="spring_introduction.animal.Cat">
+          class="spring_introduction.animal.Cat"
+          init-method="init"
+          destroy-method="destroy">
     </bean>
     <bean id="myPet2"
           class="spring_introduction.animal.Dog"
