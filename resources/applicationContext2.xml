@@ -9,17 +9,17 @@
     <!--Здесь мы определим два разных бина, один будет singletone, второй prototype, синтаксис
     простой не будем дополнительно его рассматривать-->
     <bean id="myPet"
-          class="spring_introduction.animal.Cat"
+          class="Part_one_Spring_introduction.animal.Cat"
           init-method="init"
           destroy-method="destroy">
     </bean>
     <bean id="myPet2"
-          class="spring_introduction.animal.Dog"
+          class="Part_one_Spring_introduction.animal.Dog"
           scope="prototype">
     </bean>
 
     <bean id="myPerson"
-          class="spring_introduction.animal.Person">
+          class="Part_one_Spring_introduction.animal.Person">
         <constructor-arg ref="myPet"/>
     </bean>
 </beans>

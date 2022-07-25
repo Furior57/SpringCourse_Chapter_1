@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
     <!--Такой записью мы указываем в каком пакете Spring должен искать классы отмеченные как
     @Component-->
-    <context:component-scan base-package="spring_introduction"/>
+    <context:component-scan base-package="Part_one_Spring_introduction"/>
     <context:property-placeholder location="classpath:myApp.properties"/>
 
 </beans>

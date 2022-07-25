@@ -30,7 +30,7 @@
     все пакеты ниже пакета java(точнее ниже пакета src.java, однако компилятор позволяет нам
     просто указать имя класса, а полное имя он подставит сам, вернемся в Lesson2-->
     <bean id="myPet"
-          class="spring_introduction.animal.Cat">
+          class="Part_one_Spring_introduction.animal.Cat">
     </bean>
     <!--Итак, у нас есть некий класс Person, мы не хотим писать кучу кода при создании инстанса,
     как нам поступить? Мы точно так же описываем здесь bean, но теперь добавим к нему тэг
@@ -39,7 +39,7 @@
      будет сам создавать обьекты нужных классов, подставляя их в конструктор Person, вернемся в
      Lesson_3-->
     <bean id="myPerson"
-          class="spring_introduction.animal.Person">
+          class="Part_one_Spring_introduction.animal.Person">
         <constructor-arg ref="myPet"/>
     </bean>
 </beans>

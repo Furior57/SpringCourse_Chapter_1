@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder location="classpath:myApp.properties"/>
     <bean id="myPet"
-          class="spring_introduction.animal.Cat">
+          class="Part_one_Spring_introduction.animal.Cat">
     </bean>
     <!--В прошлом уроке мы прописывали тэг constructor-arg, с его помощью мы вызывали конструктор
     класса и передавали ему ссылку на тот бин, который соответствовал его аргументу.
@@ -23,7 +23,7 @@
     позволяет нам не указывать никаких зависимостей в самом классе, а конфигурировать их здесь.
     Вернемся в Lesson_4, 10 строка-->
     <bean id="myPerson"
-          class="spring_introduction.animal.Person">
+          class="Part_one_Spring_introduction.animal.Person">
         <property name="pet" ref="myPet"/>
         <!--Здесь все просто, так же используем ключевое слово property, чтобы получить доступ к
         сеттеру, но потом передаем не ссылку на бин, а с помощью ключевого слова value задаем
