@@ -3,6 +3,7 @@ package Part_two_AOP.service.aspects;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 // Помечаем этот класс двумя аннотациями, сначала как @Component, а уже потом как @Aspect,
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 // методом Library.getBook().
 @Component
 @Aspect
+@Order(1)
 public class LoggingAspect {
     // Почему в конце названия метода мы поставили слово Advice? Это принятое именование методов
     // внутри аспект-классов. Есть несколько типов Advice методов:
@@ -28,19 +30,21 @@ public class LoggingAspect {
     // пометим его аннотацией @Before, далее новый для нас синтаксис, дословно он означает:
     // перед-выполнением-public void getBook(), такое выражение называется pointcut и оно
     // описывает, когда именно будет отрабатывать аспект-метод.
-    @Before("execution(public void getBook())")
+//    @Before("execution(public void getBook())"), в дальнейшем мы вынесли это выражение в
+    // отдельный класс
+    @Before("Part_two_AOP.service.MyPointcuts.beforeGetMethods()")
     public void beforeGetBookAdvice() {
-        System.out.println("beforeGetBookAdvice: trying to take a book");
+        System.out.println("Logging aspect");
     }
     // При работе аспект-методов очень важно учитывать скорость их работы, не перегружать
     // лишней логикой и использованием ресурсов, так как это может сильно отражаться на скорости
     // работы программы.
 
     // Вот таким вот образом мы ограничиваем класс метода, который нас интересует.
-    @AfterReturning("execution(public void Part_two_AOP.service.Library.getBook())")
-    public void afterGetBookAdvice() {
-        System.out.println("Method execution with @AfterRunning");
-    }
+//    @AfterReturning("execution(public void Part_two_AOP.service.Library.getBook())")
+//    public void afterGetBookAdvice() {
+//        System.out.println("Method execution with @AfterRunning");
+//    }
 
     // Использование wildcard с названием метода, после * может идти все что угодно, если оставим
     // только *, этот метод будет отрабатывать перед всеми методами с таким модификатором
@@ -73,11 +77,11 @@ public class LoggingAspect {
     // мы параметром указываем полное имя класса, в нашем случае aop.service.Book, иначе ide
     // просто не поймет откуда брать этот класс. Однако в случае с неопределенным количеством
     // параметров мы все равно получим результат, не важно, пользовательский там класс, или
-    // примитивный тип данных
-    @AfterReturning("execution(* get*(Part_two_AOP.service.Book))")
-    public void afterGetBookObjectAdvice() {
-        System.out.println("Get object \"Book\"");
-    }
+    // примитивный тип данных. Закомментируем его чтобы он нам дальше не мешал.
+//    @AfterReturning("execution(* get*(Part_two_AOP.service.Book))")
+//    public void afterGetBookObjectAdvice() {
+//        System.out.println("Get object \"Book\"");
+//    }
 
 
 }
