@@ -1,6 +1,7 @@
 package aop.service.aspects;
 
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,51 @@ public class LoggingAspect {
     public void beforeGetBookAdvice() {
         System.out.println("beforeGetBookAdvice: trying to take a book");
     }
-    // Пир работе аспект-методов очень важно учитывать скорость их работы, не перегружать
+    // При работе аспект-методов очень важно учитывать скорость их работы, не перегружать
     // лишней логикой и использованием ресурсов, так как это может сильно отражаться на скорости
     // работы программы.
+
+    // Вот таким вот образом мы ограничиваем класс метода, который нас интересует.
+    @AfterReturning("execution(public void aop.service.Library.getBook())")
+    public void afterGetBookAdvice() {
+        System.out.println("Method execution with @AfterRunning");
+    }
+
+    // Использование wildcard с названием метода, после * может идти все что угодно, если оставим
+    // только *, этот метод будет отрабатывать перед всеми методами с таким модификатором
+    // доступа и типом возврата. А если мы заходим, чтобы наш метод работал вообще со всеми
+    // запускаемыми методами без параметров, то запись будет выглядеть так:
+    // @Before("execution(* *())"), однако что то мне подсказывает, что это плохая практика.
+    // Вернемся в Lesson_14 на 47 строку
+    @Before("execution(public void set*())")
+    public void setBookAdvice() {
+        System.out.println("Set-advice method with wildcard is running");
+    }
+
+    // Определим еще один advice метод, но уже учитывающий параметры. Как мы видим с помощью
+    // wildcard мы так же можем подставлять любой тип параметров, но если мы его не используем,
+    // мы должны учитывать тип параметров, а так же их очередность, не получится поставить
+    // int перед String, в этом случае аспект будет искать именно такую очередность
+    // параметров в методе, само собой количество параметров тоже необходимо учитывать.
+    // Однако может возникнуть ситуация, когда нам нужны все методы с любым количеством
+    // параметров, в этом случае запись принимает вид:
+    // @Before("execution(* get*(..))"), так мы указываем, что количество параметров не определено,
+    // их может вообще не быть.
+    @Before("execution(* get*(String, *))")
+    public void beforeGetBookWithParameters() {
+        System.out.println("Get a book with parameters");
+    }
+    // Однако до сих пор мы работали с примитивными типами(String не учитываем, это класс-обертка
+    // для char, который является примитивным), но что будет если параметром мы передаем
+    // пользовательский тип данных? Мы создали класс Book, пометили его как @Component, задали
+    // одно поле с именем и сразу же определили имя, так же сгенерировали геттер. В этом случае
+    // мы параметром указываем полное имя класса, в нашем случае aop.service.Book, иначе ide
+    // просто не поймет откуда брать этот класс. Однако в случае с неопределенным количеством
+    // параметров мы все равно получим результат, не важно, пользовательский там класс, или
+    // примитивный тип данных
+    @AfterReturning("execution(* get*(aop.service.Book))")
+    public void afterGetBookObjectAdvice() {
+        System.out.println("Get object \"Book\"");
+    }
+
 }
