@@ -1,10 +1,14 @@
 package Part_two_AOP.service.aspects;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 // Помечаем этот класс двумя аннотациями, сначала как @Component, а уже потом как @Aspect,
 // по умолчанию этой библиотеки нет, переходим на сайт maven ищем в репозитории AspectJ weaver, качаем
@@ -36,6 +40,7 @@ public class LoggingAspect {
     public void beforeGetBookAdvice() {
         System.out.println("Logging aspect");
     }
+
     // При работе аспект-методов очень важно учитывать скорость их работы, не перегружать
     // лишней логикой и использованием ресурсов, так как это может сильно отражаться на скорости
     // работы программы.
@@ -70,6 +75,7 @@ public class LoggingAspect {
     public void beforeGetBookWithParameters() {
         System.out.println("Get a book with parameters");
     }
+
     // Однако до сих пор мы работали с примитивными типами(String не учитываем, это класс-обертка
     // для char, который является примитивным), но что будет если параметром мы передаем
     // пользовательский тип данных? Мы создали класс Book, пометили его как @Component, задали
@@ -82,6 +88,44 @@ public class LoggingAspect {
 //    public void afterGetBookObjectAdvice() {
 //        System.out.println("Get object \"Book\"");
 //    }
+    // Для логирования неплохо было бы понимать на каком именно методе вызывается наш advice
+    // именно для этого и существуют JoinPoint-ы, в параметры служебного метода мы передаем
+    // обьект интерфейса JoinPoint, в котором будет содержаться вся информация
+    // о методе на котором вызвали advice
+    @Before("Part_two_AOP.service.MyPointcuts.beforeAddMethods()")
+    public void beforeAddBookAdvice(JoinPoint joinPoint) {
+        // Таким образом мы получаем информацию о сигнатуре метода
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        // а таким образом получаем аргументы метода на котором вызван advice
+        Object[] args = joinPoint.getArgs();
+        // а теперь передадим эту информацию в сообщение и посмотрим что получилось
+        // в Lesson_17
+        System.out.println("Logging aspect working in: " + methodSignature + "\nWith params: " +
+                Arrays.toString(args));
+        // Пройдемся по методам интерфейса MethodSignature:
+        // Получаем полное название метода с полными названиями типов аргументов
+        methodSignature.getMethod();
+        // получаем тип возврата метода
+        methodSignature.getReturnType();
+        // получаем имя метода
+        methodSignature.getName();
+        // Это основные методы, есть и другие, но их мы тут не будем рассматривать,
+        // по большей части этой информации нам будет хватать всегда.
+        // Теперь по основным методам JoinPoint
+        // получаем вид метода(method-execution)
+        System.out.println(joinPoint.getKind());
+        // получаем полный адрес целевого метода
+        System.out.println(joinPoint.getTarget());
+        // Как я понял это место хранения скомпилированного pointcut, могу ошибаться
+        System.out.println(joinPoint.getSourceLocation());
+        // а здесь получаем сигнатуру pointcut со всеми прописанными в нем аргументами,
+        // но вместо метаданных идет точное название метода и типы его аргументов
+        // в нашем случае вывод такой:
+        // execution(void Part_two_AOP.service.Library.addBook(String,Book))
+        System.out.println(joinPoint.getStaticPart());
+        // получаем this, для нас ничем не отличается от getTarget, но видно отличие есть
+        System.out.println(joinPoint.getThis());
+    }
 
 
 }

@@ -13,4 +13,9 @@ public class ExceptionHandlingAspect {
     public void beforeGetExceptionHandlingBookAdvice() {
         System.out.println("Exception handling aspect");
     }
+    @Before("Part_two_AOP.service.MyPointcuts.beforeAddMethods()")
+    public void beforeAddExceptionHandlingBookAdvice() {
+        System.out.println("Exception handling aspect");
+    }
+
 }

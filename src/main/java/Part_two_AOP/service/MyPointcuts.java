@@ -8,4 +8,8 @@ public class MyPointcuts {
     @Pointcut("execution(* get*(..))")
     public void beforeGetMethods() {
     }
+
+    @Pointcut("execution(* add*(..))")
+    public void beforeAddMethods() {
+    }
 }

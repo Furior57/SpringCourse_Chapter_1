@@ -25,6 +25,11 @@ public class SecurityAspect {
         System.out.println("Security aspect");
     }
 
+    @Before("Part_two_AOP.service.MyPointcuts.beforeAddMethods()")
+    public void beforeAddSecurityAdvice() {
+        System.out.println("Security aspect");
+    }
+
     // Так как pointcut-выражения, это выражения :), мы можем использовать их с операторами сравнения
     // В классе Library мы определили два новых метода readBook() и returnBook()
     // теперь определим несколько выражений.
