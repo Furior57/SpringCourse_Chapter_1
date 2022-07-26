@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyPointcuts {
-    @Pointcut("execution(* get*(..))")
+    @Pointcut("execution(* abc*(..))")
     public void beforeGetMethods() {
     }
 
-    @Pointcut("execution(* add*(..))")
+    @Pointcut("execution(* dfg*(..))")
     public void beforeAddMethods() {
     }
 }
