@@ -3,6 +3,7 @@ package Part_two_AOP.service.aspects;
 import Part_two_AOP.service.Student;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -37,5 +38,26 @@ public class UniversityLoggingAspect {
         firstStudent.setAvGrade(9.6);
         System.out.println("afterReturningGetStudentsLoggingAdvice: logging getting list of " +
                 "students after returning method getStudents()");
+    }
+
+    // Если мы хотим получить информацию об исключении, нам необходимо действовать
+    // по аналогии с тем как мы записывали сигнатуру AfterReturning, добавляем выражение:
+    @AfterThrowing(pointcut = "execution(* getStudents())", throwing = "exception")
+    // Слово throwing аналог предыдущего returning, а аргументом в метод передаем
+    // обьект класса Throwable, это родитель для всех классов исключений, впрочем,
+    // если мы уверены в том какое исключение у нас будет мы можем передать
+    // именно его тип.
+    public void afterThrowingGetStudentsLoggingAdvice(Throwable exception) {
+        // здесь мы просто выведем имя исключения.
+        System.out.println("afterThrowingGetStudentsLoggingAdvice: logging exception:\n" +
+                ""+ exception);
+        // Здесь еще два полезных метода, описание исключения не включая его полного имени:
+        System.out.println(exception.getMessage());
+        // значение ставшее причиной исключения, у нас null, так как мы вышли за границы списка
+        System.out.println(exception.getCause());
+        // Однако несмотря на то, что мы можем перехватить исключение, мы никак не можем его
+        // обработать, оно будет перебрасываться выше до того блока где мы его обработаем.
+        // Либо дойдет до main() не обработанным и программа аварийно завершится.
+
     }
 }
