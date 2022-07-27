@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyPointcuts {
+    // поменяли данные выражения на несуществующие, чтобы не захламлять вывод
     @Pointcut("execution(* abc*(..))")
     public void beforeGetMethods() {
     }

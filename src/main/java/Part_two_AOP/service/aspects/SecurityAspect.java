@@ -39,10 +39,10 @@ public class SecurityAspect {
     @Pointcut("execution(* read*())")
     private void allReadMethods() {
     }
-    // все return методы
-    @Pointcut("execution(* return*())")
-    private void allReturnMethods() {
-    }
+    // все return методы, закомментировали, так как далее пользуемся другим advice
+//    @Pointcut("execution(* return*())")
+//    private void allReturnMethods() {
+//    }
     // все методы
     @Pointcut("execution(* *())")
     private void allMethods() {
@@ -54,16 +54,16 @@ public class SecurityAspect {
     public void beforeReadMethodsAdvice() {
         System.out.println("Log #1");
     }
-    // перед всеми return методами
-    @Before("allReturnMethods()")
-    public void beforeReturnMethodsAdvice() {
-        System.out.println("Log #2");
-    }
-    // перед всеми read или return методами
-    @Before("allReadMethods() || allReturnMethods()")
-    public void beforeReadOrReturnMethodsAdvice() {
-        System.out.println("Log #3");
-    }
+    // перед всеми return методами, закомментировали, так как далее пользуемся другим advice
+//    @Before("allReturnMethods()")
+//    public void beforeReturnMethodsAdvice() {
+//        System.out.println("Log #2");
+//    }
+    // перед всеми read или return методами, закомментировали, так как далее пользуемся другим advice
+//    @Before("allReadMethods() || allReturnMethods()")
+//    public void beforeReadOrReturnMethodsAdvice() {
+//        System.out.println("Log #3");
+//    }
     // перед всеми методами кроме return. Закомментируем его, чтобы он нам дальше не мешал
 //    @Before("allMethods() && !allReturnMethods()")
 //    public void beforeAllMethodsWithoutReturnAdvice() {
