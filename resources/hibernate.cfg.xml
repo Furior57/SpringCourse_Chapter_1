@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--Сверху указана версия xml, ниже описание-->
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!--Открываем конфигурацию-->
+<hibernate-configuration>
+    <!--Настройки сессии-->
+    <session-factory>
+        <!--Место хранение базы и настройки подключения к ней-->
+        <property name="connection.url">jdbc:mysql://localhost:3306/my_db?useSSL=false&amp;serverTimezone=UTC</property>
+        <!--Версия драйвера для работы с базой данных-->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <!--Имя пользователя и пароль-->
+        <property name="connection.username">bestuser</property>
+        <property name="connection.password">bestuser</property>
+        <!--На этой настройке мы пока не будем останавливаться, просто укажем что вот
+        такая стратегия сессии используется, разберемся с этим позже-->
+        <property name="current_session_context_class">thread</property>
+        <!--Есть разные SQL языки, основной костяк у них у всех один и тот же, но диалекты
+        немного отличаются, здесь мы работаем с MySQL-->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!--Когда мы будем запускать код в java, в консоли мы увидим как выглядит sql запрос
+        Очень крутая фича, которая позволит нам лучше узнать как работает язык SQL запросов-->
+        <property name="show_sql">true</property>
+
+    </session-factory>
+</hibernate-configuration>
