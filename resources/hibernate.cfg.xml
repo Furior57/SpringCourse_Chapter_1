@@ -23,6 +23,8 @@
         <!--Когда мы будем запускать код в java, в консоли мы увидим как выглядит sql запрос
         Очень крутая фича, которая позволит нам лучше узнать как работает язык SQL запросов-->
         <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="use_sql_comments">true</property>
 
     </session-factory>
 </hibernate-configuration>
