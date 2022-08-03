@@ -1,7 +1,7 @@
 package Part_Three_Hibernate;
 
-import Part_Three_Hibernate.service.entity.Detail;
-import Part_Three_Hibernate.service.entity.Employee;
+import Part_Three_Hibernate.service.entity.oneToOne.Detail;
+import Part_Three_Hibernate.service.entity.oneToOne.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

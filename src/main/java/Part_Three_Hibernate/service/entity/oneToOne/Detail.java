@@ -1,4 +1,4 @@
-package Part_Three_Hibernate.service.entity;
+package Part_Three_Hibernate.service.entity.oneToOne;
 
 
 import javax.persistence.*;

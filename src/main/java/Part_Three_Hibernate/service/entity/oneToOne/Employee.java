@@ -1,4 +1,4 @@
-package Part_Three_Hibernate.service.entity;
+package Part_Three_Hibernate.service.entity.oneToOne;
 // Как мы можем видеть все аннотации мы импортируем не из Hibernate а из javax.persistence
 // JPA(Java Persistence API) - это стандартная спецификация в Java, которая описывает систему
 // управления сохранением объектов в базы данных, Hibernate - это ее реализация.
