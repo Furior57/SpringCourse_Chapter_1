@@ -2,19 +2,28 @@ package Part_Three_Hibernate.service.entity;
 
 
 import javax.persistence.*;
-
+// Ниже мы добавляем поле типа Employee, перейдем к нему.
 @Entity
 @Table(name="details")
 public class Detail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
     @Column
-    String city;
+    private String city;
     @Column
-    String phone_number;
+    private String phone_number;
     @Column
-    String email;
+    private String email;
+
+    // К этому полю мы указываем аннотацию с типом отношений, а параметром передаем:
+    // mappedBy ="", в который передаем название поля класса Employee по которому мы связаны с ним.
+    // Нам не нужно прописывать @JoinColumn, мы это уже сделали в классе Employee и создали связь.
+    // Здесь мы просто указываем нашему классу, где эту связь искать.
+    // Так же мы указали тип каскада, по аналогии с классом Employee, теперь все изменения в Detail
+    // объекте коснутся и связанного Employee объекта. Вернемся в Lesson_29 в main().
+    @OneToOne(mappedBy = "empDetail", cascade = CascadeType.ALL)
+    private Employee employee;
 
     public Detail() {
     }
@@ -55,6 +64,14 @@ public class Detail {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
