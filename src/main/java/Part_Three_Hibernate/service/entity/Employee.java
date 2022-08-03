@@ -45,6 +45,21 @@ public class Employee {
     private String department;
     @Column(name = "salary")
     private int salary;
+    // Нам необходимо связать два класса, в этот класс мы будем передавать внешний ключ.
+    // Добавили поле типа Detail и пометили аннотацией @OneToOne, таким образом
+    // мы указываем какой тип отношений будет в наших классах.
+    // В скобках мы указали тип cascade-операций для этой связи, это операции со связанными таблицами
+    // если мы удалим объект Employee, то у нас автоматически удалится связанный с ним объект
+    // Details, перечисление ALL означает, что каскад применяется ко всем типам операций.
+    // Если мы не прописываем каскад, то по умолчанию он не работает.
+    @OneToOne(cascade = CascadeType.ALL)
+    // А здесь мы указываем именно то поле в таблице, которое связывает наши классы
+    @JoinColumn(name = "details_id")
+    // Тип этого поля соответствует тому классу с которым мы связываемся.
+    // Вернемся в Lesson_28 в main()
+    private Detail empDetail;
+
+
     // обязательно создаем конструктор без аргументов
     public Employee() {
     }
@@ -106,5 +121,13 @@ public class Employee {
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public Detail getEmpDetail() {
+        return empDetail;
+    }
+
+    public void setEmpDetail(Detail empDetail) {
+        this.empDetail = empDetail;
     }
 }
