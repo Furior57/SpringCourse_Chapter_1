@@ -3,12 +3,15 @@ package Part_Three_Hibernate.service.entity.manyToMany;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
+
 // По аналогии с прошлым примером OneToMany мы создаем класс, полями определяем столбцы в таблице,
 // а также добавляем поле List в котором будем держать множество детей(кстати было бы логичней
 // Set а не List), также мы по аналогии определили метод заполнения нашего списка.
 // Теперь перейдем к этому полю.
 @Entity
-@Table(name="children")
+@Table(name = "children")
 public class Child {
 
     @Id
@@ -34,9 +37,14 @@ public class Child {
     // В классе Section мы сделали все абсолютно так же как и тут, но поля указанные в
     // joinColumns и inverseJoinColumns поменялись там местами.
     // Перейдем в Lesson_33 в main().
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "children_section",joinColumns = @JoinColumn(name = "child_id"),
-    inverseJoinColumns = @JoinColumn(name = "section_id"))
+
+    // При использовании отношений ManyToMany в корне неправильно оставлять тип каскада ALL.
+    // Удалив одного ребенка, мы удаляем все связанные с ним секции и обратно, удалив
+    // секцию мы удаляем всех детей, которые в нее ходили. Поэтому укажем все типы каскада, кроме
+    // REMOVE, то же самое сделаем в классе Section. Вернемся в main() на 76 строку.
+    @ManyToMany(cascade = {REFRESH, MERGE, PERSIST, DETACH})
+    @JoinTable(name = "children_section", joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "section_id"))
     private List<Section> sections;
 
 

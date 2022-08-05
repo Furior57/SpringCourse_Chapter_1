@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "section")
 public class Section {
@@ -13,8 +15,8 @@ public class Section {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "children_section",joinColumns = @JoinColumn(name = "section_id"),
+    @ManyToMany(cascade = {REFRESH, MERGE, PERSIST, DETACH})
+    @JoinTable(name = "children_section", joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "child_id"))
     private List<Child> children;
 

@@ -68,9 +68,22 @@ public class Lesson_33_ManyToMany {
 //            session.save(section1);
 //            session.save(section2);
             // теперь давайте получим секцию и выведем всю информацию о ней
+            // Вернемся в класс Child к аннотации ManyToMany
             Section section = session.get(Section.class, 5);
             System.out.println(section);
             System.out.println(section.getChildren());
+
+            // Мы изменили тип каскада и попытались сохранить объект секции в базу иии...
+            // Получили исключение. Почему? Помните мы говорили про пакет JPA?
+            // Эдакий сборник правил для работы с базами данных. Так вот когда мы работали
+            // с типами каскада, мы импортировали эти типы из библиотеки
+            // javax.persistence.CascadeType*, однако обрабатывали эти перечисления мы уже библиотекой
+            // Hibernate, расположенной в пакете org.hibernate.annotations.CascadeType*, а там
+            // перечислений гораздо больше и именно то которое отвечало за метод save() мы не включили.
+            // Как быть в такой ситуации? Очень просто, существует еще один метод отвечающий
+            // за сохранение объектов, persist(). Метода save()  persist() отличаются тем,
+            // что save возвращает идентификатор объекта сразу.
+            session.persist(section1);
             session.getTransaction().commit();
         }
     }
